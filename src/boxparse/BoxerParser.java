@@ -1,7 +1,6 @@
 package boxparse;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +18,6 @@ import org.xml.sax.SAXException;
 import boxparse.exception.UnableToParseException;
 import boxparse.interpretation.Interpretation;
 import boxparse.interpretation.Token;
-import boxparse.interpretation.drs.DRS;
 
 /**
  * BoxerParser reads and parses the XML output of Boxer, generating an interpretation in Java.
@@ -58,25 +56,6 @@ public class BoxerParser {
 		}
 		
 		return dom.getDocumentElement();
-	}
-	
-	/**
-	 * Selects only the element nodes of a node list. 
-	 * 
-	 * @param nodes The node list.
-	 * @return A list with the element nodes.
-	 */
-	private List<Element> selectElements(NodeList nodes) {
-		List<Element> elements = new ArrayList<Element>();
-		
-		for(int i = 0; i < nodes.getLength(); i++) {
-			Node node = nodes.item(i);
-			if(node.getNodeType() == Node.ELEMENT_NODE) {
-				elements.add((Element) node);
-			}
-		}
-		
-		return elements;
 	}
 	
 	/**
@@ -119,37 +98,6 @@ public class BoxerParser {
 		
 		return tokens;
 	}
-	
-	private DRS parseDRS(Element drs, HashMap<String, Token> tokens) throws UnableToParseException {
-		
-		switch(drs.getNodeName()) {
-		case "drs":
-			return parseBasicDRS(drs, tokens);
-		case "merge":
-			return parseMergeDRS(drs, tokens);
-		case "smerge":
-			return parseMergeDRS(drs, tokens);
-		case "alfa":
-			return parseAlfaDRS(drs, tokens);
-		default:
-			throw new UnableToParseException("Invalid DRS type"); // This never happens
-		}
-	}
-	
-	private DRS parseAlfaDRS(Element drs, HashMap<String, Token> tokens) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private DRS parseMergeDRS(Element drs, HashMap<String, Token> tokens) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private DRS parseBasicDRS(Element drs, HashMap<String, Token> tokens) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	/**
 	 * Generates an interpretation based on the multiple XML sections.
@@ -162,12 +110,7 @@ public class BoxerParser {
 	 * @throws UnableToParseException if the main DRS could not be parsed.
 	 */
 	private Interpretation generateInterpretation(Element words, Element pos, Element ne, Element drs) throws UnableToParseException {
-		HashMap<String, Token> tokens = generateTokens(words, pos, ne);
-		
-		DRS mainDRS = parseDRS(drs, tokens);
-		
-		Interpretation interpretation = new Interpretation();
-		return interpretation;
+		return (new DRSParser(drs, generateTokens(words, pos, ne))).parse();
 	}
 
 	/**
@@ -186,9 +129,8 @@ public class BoxerParser {
 		}
 		
 		Node xdrs = xdrss.item(0); // TODO: Edit here for multiple XDRSs
-		
 
-		List<Element> mainChildren = selectElements(xdrs.getChildNodes());
+		List<Element> mainChildren = NodeFilter.getInstance().selectElements(xdrs.getChildNodes());
 		
 		if(mainChildren.size() != 4 || !mainChildren.get(0).getNodeName().equals("words")
 				|| !mainChildren.get(1).getNodeName().equals("postags")
