@@ -13,7 +13,7 @@ public class BasicDRS implements DRS {
 	/**
 	 * The conditions present in the DRS.
 	 */
-	private List<Condition> conditions;
+	private final List<Condition> conditions;
 	
 	/**
 	 * Creates a new basic DRS.

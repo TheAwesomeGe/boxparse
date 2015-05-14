@@ -11,15 +11,20 @@ import boxparse.interpretation.drs.DRS;
  */
 public class Interpretation {
 	private HashMap<String, Token> tokens;
+	private HashMap<String, Referent> referents;
 	private DRS drs;
 	
-	public Interpretation(HashMap<String, Token> tokens, DRS drs) {
+	public Interpretation(HashMap<String, Token> tokens, HashMap<String, Referent> referents, DRS drs) {
 		this.tokens = tokens;
 		this.drs = drs;
 	}
 	
 	public HashMap<String, Token> getTokens() {
 		return tokens;
+	}
+	
+	public HashMap<String, Referent> getReferents() {
+		return referents;
 	}
 	
 	public DRS getDRS() {

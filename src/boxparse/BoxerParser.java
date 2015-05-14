@@ -151,7 +151,9 @@ public class BoxerParser {
 	public static void main(String[] args) throws UnableToParseException {
 		BoxerParser parser = new BoxerParser();
 		
-		parser.parse("/Users/ge/Downloads/candc-1.00/test.xml");
+		Interpretation i = parser.parse("/Users/ge/Downloads/candc-1.00/test.xml");
+		
+		System.out.println(i);
 	}
 
 }

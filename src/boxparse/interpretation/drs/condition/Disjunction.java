@@ -1,10 +1,12 @@
-package boxparse.interpretation.drs;
+package boxparse.interpretation.drs.condition;
 
-public class MergeDRS implements DRS {
+import boxparse.interpretation.drs.DRS;
+
+public class Disjunction implements Condition {
 	private final DRS drs1;
 	private final DRS drs2;
 	
-	public MergeDRS(DRS drs1, DRS drs2) {
+	public Disjunction(DRS drs1, DRS drs2) {
 		this.drs1 = drs1;
 		this.drs2 = drs2;
 	}
