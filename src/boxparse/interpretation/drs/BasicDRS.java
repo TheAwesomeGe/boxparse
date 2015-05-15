@@ -33,4 +33,14 @@ public class BasicDRS implements DRS {
 		return conditions;
 	}
 	
+	/**
+	 * Accepts a DRS visitor.
+	 * 
+	 * @param visitor The visitor.
+	 */
+	@Override
+	public void accept(DRSVisitor visitor) {
+		visitor.processDRS(this);
+	}
+	
 }

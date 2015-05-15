@@ -16,6 +16,7 @@ public class Interpretation {
 	
 	public Interpretation(HashMap<String, Token> tokens, HashMap<String, Referent> referents, DRS drs) {
 		this.tokens = tokens;
+		this.referents = referents;
 		this.drs = drs;
 	}
 	

@@ -1,5 +1,7 @@
 package boxparse.interpretation.drs.condition;
 
+import boxparse.interpretation.drs.DRSVisitor;
+
 /**
  * A relation between two referents.
  * 
@@ -72,6 +74,16 @@ public class Relation implements Condition {
 	 */
 	public int getSense() {
 		return sense;
+	}
+	
+	/**
+	 * Accepts a DRS visitor.
+	 * 
+	 * @param visitor The visitor.
+	 */
+	@Override
+	public void accept(DRSVisitor visitor) {
+		visitor.processRelation(this);
 	}
 	
 }

@@ -157,7 +157,7 @@ public class DRSParser {
 		
 		Element index = (Element) referent.getElementsByTagName("index").item(0);
 		
-		referents.put(id, index != null ? new Referent(id, index.getNodeValue()) : new Referent(id));		
+		referents.put(id, index != null ? new Referent(id, index.getTextContent()) : new Referent(id));		
 	}
 	
 	/**
@@ -294,10 +294,18 @@ public class DRSParser {
 		return null;
 	}
 	
-	private Proposition parseProposition(Element proposition) {
-		// TODO Auto-generated method stub
-		System.out.println("A wild Proposition appeared!");
-		return null;
+	private Proposition parseProposition(Element proposition) throws UnableToParseException {
+		NodeFilter filterer = NodeFilter.getInstance();
+		List<Element> children = filterer.removeIndexElements(filterer.selectElements(proposition.getChildNodes()));
+		
+		if(children.size() != 1) {
+			throw new UnableToParseException("Proposition with invalid number of components");
+		}
+		
+		String referent = proposition.getAttribute("argument");
+		Proposition p = new Proposition(referent, parseDRS(children.get(0)));
+		referents.get(referent).addReference(p);
+		return p;
 	}
 
 	/**

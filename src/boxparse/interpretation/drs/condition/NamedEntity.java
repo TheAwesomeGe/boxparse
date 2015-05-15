@@ -1,5 +1,7 @@
 package boxparse.interpretation.drs.condition;
 
+import boxparse.interpretation.drs.DRSVisitor;
+
 public class NamedEntity implements Condition {
 	private final String referent;
 	private final String symbol;
@@ -21,5 +23,15 @@ public class NamedEntity implements Condition {
 
 	public String getType() {
 		return type;
+	}
+	
+	/**
+	 * Accepts a DRS visitor.
+	 * 
+	 * @param visitor The visitor.
+	 */
+	@Override
+	public void accept(DRSVisitor visitor) {
+		visitor.processNamedEntity(this);
 	}
 }

@@ -16,4 +16,14 @@ public class MergeDRS implements DRS {
 	public DRS getSecondDRS() {
 		return drs2;
 	}
+	
+	/**
+	 * Accepts a DRS visitor.
+	 * 
+	 * @param visitor The visitor.
+	 */
+	@Override
+	public void accept(DRSVisitor visitor) {
+		visitor.processMergeDRS(this);
+	}
 }

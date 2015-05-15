@@ -50,4 +50,22 @@ public class NodeFilter {
 		
 		return elements;
 	}
+	
+	/**
+	 * Removes index elements from a list non destructively.
+	 * 
+	 * @param element The element list.
+	 * @return The list without index nodes.
+	 */
+	public List<Element> removeIndexElements(List<Element> elements) {
+		List<Element> filtered = new ArrayList<Element>();
+		
+		for(Element e : elements) {
+			if(!e.getNodeName().equals("index")) {
+				filtered.add(e);
+			}
+		}
+		
+		return filtered;
+	}
 }

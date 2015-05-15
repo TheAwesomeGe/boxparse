@@ -18,6 +18,7 @@ import org.xml.sax.SAXException;
 import boxparse.exception.UnableToParseException;
 import boxparse.interpretation.Interpretation;
 import boxparse.interpretation.Token;
+import boxparse.interpretation.printer.XMLPrinter;
 
 /**
  * BoxerParser reads and parses the XML output of Boxer, generating an interpretation in Java.
@@ -151,9 +152,9 @@ public class BoxerParser {
 	public static void main(String[] args) throws UnableToParseException {
 		BoxerParser parser = new BoxerParser();
 		
-		Interpretation i = parser.parse("/Users/ge/Downloads/candc-1.00/test.xml");
+		Interpretation i = parser.parse("/Users/ge/Downloads/candc-1.00/test2.xml");
 		
-		System.out.println(i);
+		(new XMLPrinter()).print(i);
 	}
 
 }

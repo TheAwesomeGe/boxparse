@@ -1,5 +1,14 @@
 package boxparse.interpretation.drs.condition;
 
-public interface Condition {
+import boxparse.interpretation.drs.DRSVisitor;
 
+public interface Condition {
+	
+	/**
+	 * Accepts a DRS visitor.
+	 * 
+	 * @param visitor The visitor.
+	 */
+	public void accept(DRSVisitor visitor);
+	
 }

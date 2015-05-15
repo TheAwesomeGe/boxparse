@@ -1,6 +1,7 @@
 package boxparse.interpretation.drs.condition;
 
 import boxparse.interpretation.drs.DRS;
+import boxparse.interpretation.drs.DRSVisitor;
 
 public class Disjunction implements Condition {
 	private final DRS drs1;
@@ -17,5 +18,15 @@ public class Disjunction implements Condition {
 	
 	public DRS getSecondDRS() {
 		return drs2;
+	}
+	
+	/**
+	 * Accepts a DRS visitor.
+	 * 
+	 * @param visitor The visitor.
+	 */
+	@Override
+	public void accept(DRSVisitor visitor) {
+		visitor.processDisjunction(this);
 	}
 }

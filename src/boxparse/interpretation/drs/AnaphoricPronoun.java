@@ -6,4 +6,14 @@ public class AnaphoricPronoun extends MergeDRS {
 		super(drs1, drs2);
 	}
 	
+	/**
+	 * Accepts a DRS visitor.
+	 * 
+	 * @param visitor The visitor.
+	 */
+	@Override
+	public void accept(DRSVisitor visitor) {
+		visitor.processAnaphoricPronoun(this);
+	}
+	
 }

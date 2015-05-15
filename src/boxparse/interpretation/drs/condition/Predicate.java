@@ -1,5 +1,7 @@
 package boxparse.interpretation.drs.condition;
 
+import boxparse.interpretation.drs.DRSVisitor;
+
 /**
  * A predicate represents a property of a given referent.
  * 
@@ -72,5 +74,15 @@ public class Predicate implements Condition {
 	 */
 	public int getSense() {
 		return sense;
+	}
+	
+	/**
+	 * Accepts a DRS visitor.
+	 * 
+	 * @param visitor The visitor.
+	 */
+	@Override
+	public void accept(DRSVisitor visitor) {
+		visitor.processPredicate(this);
 	}
 }
